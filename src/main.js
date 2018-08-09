@@ -16,16 +16,34 @@ $(document).ready(function() {
 console.log(input);
 
     let request = new XMLHttpRequest();
-    let url = `https://www.rijksmuseum.nl/api/nl/collection?q=rembrandt&key=${process.env.API_KEY}&format=json`;
+    let url = `https://www.rijksmuseum.nl/api/en/collection?q=${input}&key=${process.env.API_KEY}&format=json&imgonly=true`;
     let getElements = function(response) {
 
       // let randomNumber = Math.floor(Math.random() * 25);
+      let array = response.artObjects
+      let works = []
+
+      // array.forEach((piece) => {
+      //   $("#artwork").append(`<img src="${piece.webImage.url}">`);
+      // });
 
       var art = response.artObjects[2].webImage.url;
-      // $(".artwork").innerHTML = "<li>" + art + "</li>";
-      console.log("the " + art);
-      document.getElementById('artwork').innerHTML = "<img src=" + art + ">"
-      // document.getElementById('creature_gif').innerHTML = "<img src=" + icon + ">";
+
+      for (var i = 0; i < array.length; i++) {
+        //console.log(array[i].webImage.url);
+        $('#artwork').append("<img src=" + array[i].webImage.url + ">");
+        // works.push(array[i].webImage.url)
+      }
+
+      // console.log("array " + works);
+      // document.getElementById('artwork').innerHTML = "<img src=" + works[1] + ">"
+      //
+      // // $(".artwork").innerHTML = "<li>" + art + "</li>";
+      // console.log("the " + art);
+      // document.getElementById('artwork').innerHTML = "<img src=" + art + ">"
+      // // document.getElementById('creature_gif').innerHTML = "<img src=" + icon + ">";
+
+
     }
 
     request.onreadystatechange = function() {
