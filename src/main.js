@@ -7,17 +7,24 @@ import './styles.css';
 
 $(document).ready(function() {
 
-  // let input = $("#iconName").find('input[name=icon]').val();
+  $('#searchTerm').submit(function(event) {
+    event.preventDefault();
 
+
+
+  let input = $("#searchTerm").find('input[name=work]').val();
+console.log(input);
 
     let request = new XMLHttpRequest();
-    // let url = `https://www.rijksmuseum.nl/api/en/collection?key=${process.env.API_KEY}&format=json&type=schilderij&f.normalized32Colors.hex=%20%23367614`
-    // let url = `http://api.giphy.com/v1/gifs/search?api_key=qwCP7BLZ5HMzmejAQLmGB0REUMKUK5b1&q=${petName}`;
     let url = `https://www.rijksmuseum.nl/api/nl/collection?q=rembrandt&key=${process.env.API_KEY}&format=json`;
     let getElements = function(response) {
 
-      let randomNumber = Math.floor(Math.random() * 25);
-      var icon = response.artObjects[randomNumber];
+      // let randomNumber = Math.floor(Math.random() * 25);
+
+      var art = response.artObjects[2].webImage.url;
+      // $(".artwork").innerHTML = "<li>" + art + "</li>";
+      console.log("the " + art);
+      document.getElementById('artwork').innerHTML = "<img src=" + art + ">"
       // document.getElementById('creature_gif').innerHTML = "<img src=" + icon + ">";
     }
 
@@ -34,5 +41,5 @@ $(document).ready(function() {
     request.open("GET", url, true);
     request.send();
 
-
+  });
 });
